@@ -1,0 +1,42 @@
+- base = ['http://www.freesound.org/data/previews/117/117','_646701-lq.mp3']
+
+- ids = [ 'D-0','D-sharp-0','E-1','F-1','F-sharp-1','G-1','G-sharp-1','A-1','A-sharp-1','B-1','C-1','C-sharp-1',
+          'D-1','D-sharp-1','E-2','F-2','F-sharp-2','G-2','G-sharp-2','A-2','A-sharp-2','B-2','C-2','C-sharp-2',
+          'D-2','D-sharp-2','E-3','F-3','F-sharp-3','G-3','G-sharp-3','A-3','A-sharp-3','B-3','C-3','C-sharp-3',
+          'D-3','D-sharp-3','E-4' ]
+- nums = [ 720, 719, 714, 716, 715, 718, 717, 708, 707, 709, 711, 710, 713, 712, 689, 691, 690, 693, 692, 
+           683, 682, 684, 686, 685, 688, 687, 701, 703, 702, 705, 704, 695, 694, 696, 852, 697, 700, 699, 706 ]
+- chars = [ 'z', 'x', 'c', 'v', 'b', 'n', 'm', ', ', '.', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', 
+            'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' ]
+- notes = [ 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 
+            'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E' ]
+- classes = [ 122, 120, 99, 118, 98, 110, 109, 44, 46, 97, 115, 100, 102, 103, 104, 106, 107, 108, 
+              59, 113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48 ]
+
+%html(lang='en')
+  %head
+    %link(href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css')
+    %link(href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css')
+  %body.clearfix
+    .container.clearfix
+      %header
+        %h1 Piano
+        %p.description 
+          Click or type to create excellent jams
+        -(0..ids.length-1).each do |i|
+          -x = ids[i]
+          %audio(id = x)
+            -x = [base[0], nums[i], base[1]].join
+            %source(src=x type="audio/mpeg")
+            Sorry, no support for the <code>audio</code> tag
+      %ul#note-list
+        -(0..ids.length-1).each do |i|
+          -x = [ids[i],'-player'].join
+          -y = classes[i]
+          %li(id = x data-keycode = y) 
+            .text.keys #{chars[i]}
+            .text.notes #{notes[i]}
+      %h2.switch-to Switch To&colon;
+      %button#switch-chars.clear-fix
+        .to-keys Keyboard Letters
+        .to-notes Music Notes
